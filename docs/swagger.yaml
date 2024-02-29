@@ -1,0 +1,543 @@
+basePath: /v1
+definitions:
+  auth.AccessTokenRequest:
+    properties:
+      refreshToken:
+        example: badbunybabybebe
+        type: string
+    required:
+    - refreshToken
+    type: object
+  auth.DataUserAuthenticated:
+    properties:
+      email:
+        example: some@mail.com
+        type: string
+      firstName:
+        example: Kuk
+        type: string
+      id:
+        example: 123
+        type: integer
+      lastName:
+        example: Mama
+        type: string
+      role:
+        example: admin
+        type: string
+      status:
+        example: true
+        type: boolean
+      userName:
+        example: UserName
+        type: string
+    type: object
+  auth.LoginRequest:
+    properties:
+      email:
+        example: test@gmail.com
+        type: string
+      password:
+        example: Password123
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  controllers.FieldDateRangeDataRequest:
+    properties:
+      endDate:
+        example: "2021-01-01"
+        type: string
+      field:
+        example: createdAt
+        type: string
+      startDate:
+        example: "2021-01-01"
+        type: string
+    type: object
+  controllers.MessageResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  controllers.SortByDataRequest:
+    properties:
+      direction:
+        example: asc
+        type: string
+      field:
+        example: name
+        type: string
+    type: object
+  github_com_chaiyawatkit_clean-architecture-gorm-mysql_src_application_usecases_todo.PaginationResultTodo:
+    properties:
+      current:
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/todo.Todolist'
+        type: array
+      limit:
+        type: integer
+      nextCursor:
+        type: integer
+      numPages:
+        type: integer
+      prevCursor:
+        type: integer
+      total:
+        type: integer
+    type: object
+  todo.DataTodoRequest:
+    properties:
+      fieldsDateRange:
+        items:
+          $ref: '#/definitions/controllers.FieldDateRangeDataRequest'
+        type: array
+      filters:
+        additionalProperties:
+          items:
+            type: string
+          type: array
+        type: object
+      globalSearch:
+        example: chaiyawatkit
+        type: string
+      limit:
+        example: 10
+        type: integer
+      page:
+        example: 1
+        type: integer
+      sortBy:
+        $ref: '#/definitions/controllers.SortByDataRequest'
+    type: object
+  todo.MessageResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  todo.NewTodoRequest:
+    properties:
+      description:
+        example: Something
+        type: string
+      name:
+        example: Something
+        type: string
+    required:
+    - description
+    - name
+    type: object
+  todo.ResponseTodo:
+    properties:
+      createdAt:
+        example: "2021-02-24 20:19:39"
+        type: string
+      description:
+        example: Some Description
+        type: string
+      id:
+        example: 1099
+        type: integer
+      name:
+        example: Aspirina
+        type: string
+      updatedAt:
+        example: "2021-02-24 20:19:39"
+        type: string
+    type: object
+  todo.Todolist:
+    properties:
+      createdAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  user.MessageResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  user.NewUserRequest:
+    properties:
+      email:
+        example: test@gmail.com
+        type: string
+      firstName:
+        example: Kuk
+        type: string
+      lastName:
+        example: Mmama
+        type: string
+      password:
+        example: Password123
+        type: string
+      role:
+        example: admin
+        type: string
+      user:
+        example: Kuk
+        type: string
+    required:
+    - email
+    - firstName
+    - lastName
+    - password
+    - role
+    - user
+    type: object
+  user.ResponseUser:
+    properties:
+      createdAt:
+        example: "2021-02-24 20:19:39"
+        type: string
+      email:
+        example: kuk@mail.com
+        type: string
+      firstName:
+        example: kuk
+        type: string
+      id:
+        example: 999
+        type: integer
+      lastName:
+        example: Mama
+        type: string
+      status:
+        example: false
+        type: boolean
+      updatedAt:
+        example: "2021-02-24 20:19:39"
+        type: string
+      user:
+        example: kuk
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: chaiyawatkit160340@gmail.com
+    name: Chaiyawatkit
+    url: https://github.com/chaiyawatkit
+  description: Documentation's  Golang Clean-Architecture
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Golang Clean-Architecture
+  version: "1.0"
+paths:
+  /auth/access-token:
+    post:
+      description: Auth user by email and password
+      parameters:
+      - description: body data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/auth.AccessTokenRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.DataUserAuthenticated'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.MessageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.MessageResponse'
+      summary: GetAccessTokenByRefreshToken UserName
+      tags:
+      - auth
+  /auth/login:
+    post:
+      description: Auth user by email and password
+      parameters:
+      - description: body data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/auth.LoginRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.DataUserAuthenticated'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.MessageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.MessageResponse'
+      summary: Login UserName
+      tags:
+      - auth
+  /todolist:
+    get:
+      description: Get all TodoList
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/todo.ResponseTodo'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/todo.MessageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/todo.MessageResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all TodoList
+      tags:
+      - todolist
+    post:
+      consumes:
+      - application/json
+      description: Create new todoList on the system
+      parameters:
+      - description: body data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/todo.NewTodoRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/todo.Todolist'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/todo.MessageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/todo.MessageResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Create New Todolist
+      tags:
+      - todolist
+  /todolist/{id}:
+    delete:
+      description: Delete TodoList by ID
+      parameters:
+      - description: id of todolist
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/todo.MessageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/todo.MessageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/todo.MessageResponse'
+      security:
+      - ApiKeyAuth: []
+      - ApiKeyAuth: []
+      summary: Get TodoList by ID
+      tags:
+      - todolist
+    get:
+      description: Get TodoList by ID on the system
+      parameters:
+      - description: id of todolist
+        in: path
+        name: todo_id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/todo.Todolist'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/todo.MessageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/todo.MessageResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get TodoList by ID
+      tags:
+      - todolist
+    post:
+      description: Update  TodoList by id
+      parameters:
+      - description: body data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/todo.NewTodoRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/github_com_chaiyawatkit_clean-architecture-gorm-mysql_src_application_usecases_todo.PaginationResultTodo'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/todo.MessageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/todo.MessageResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Update  TodoList by id
+      tags:
+      - todolist
+  /todolist/data:
+    post:
+      description: Get all TodoList by query
+      parameters:
+      - description: body data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/todo.DataTodoRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/github_com_chaiyawatkit_clean-architecture-gorm-mysql_src_application_usecases_todo.PaginationResultTodo'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/todo.MessageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/todo.MessageResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all TodoList by query
+      tags:
+      - todolist
+  /user:
+    get:
+      description: Get all Users on the system
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/user.ResponseUser'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/user.MessageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/user.MessageResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all Users
+      tags:
+      - user
+    post:
+      consumes:
+      - application/json
+      description: Create new user on the system
+      parameters:
+      - description: body data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.NewUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.ResponseUser'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/user.MessageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/user.MessageResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Create New UserName
+      tags:
+      - user
+  /user/{user_id}:
+    get:
+      description: Get Users by ID on the system
+      parameters:
+      - description: id of user
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.ResponseUser'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/user.MessageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/user.MessageResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get users by ID
+      tags:
+      - user
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
