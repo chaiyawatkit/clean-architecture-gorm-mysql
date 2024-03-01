@@ -34,8 +34,8 @@ type Service interface {
 	GetAll() (*[]Todolist, error)
 	GetData(page int64, limit int64, sortBy string, sortDirection string, filters map[string][]string, searchText string, dateRangeFilters []domain.DateRangeFilter) (*DataTodo, error)
 	GetByID(id int) (*Todolist, error)
-	Create(medicine *NewTodo) (*Todolist, error)
-	GetByMap(medicineMap map[string]any) (*Todolist, error)
+	Create(todo *NewTodo) (*Todolist, error)
+	GetByMap(todoMap map[string]any) (*Todolist, error)
 	Delete(id int) error
-	Update(id int, medicineMap map[string]any) (*Todolist, error)
+	Update(id int, todoMap map[string]any) (*Todolist, error)
 }

@@ -13,12 +13,12 @@ func (todo *Todo) toDomainMapper() *domainTodo.Todolist {
 	}
 }
 
-func fromDomainMapper(medicine *domainTodo.Todolist) *Todo {
+func fromDomainMapper(todo *domainTodo.Todolist) *Todo {
 	return &Todo{
-		ID:          medicine.ID,
-		Name:        medicine.Name,
-		Description: medicine.Description,
-		CreatedAt:   medicine.CreatedAt,
+		ID:          todo.ID,
+		Name:        todo.Name,
+		Description: todo.Description,
+		CreatedAt:   todo.CreatedAt,
 	}
 }
 

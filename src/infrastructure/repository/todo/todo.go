@@ -31,7 +31,6 @@ var ColumnsTodoStructure = map[string]string{
 	"updatedAt": "UpdatedAt",
 }
 
-// GetData Fetch all medicine data
 func (r *Repository) GetData(page int64, limit int64, sortBy string, sortDirection string, filters map[string][]string, searchText string, dateRangeFilters []domain.DateRangeFilter) (*domainTodo.DataTodo, error) {
 	var users []Todo
 	var total int64
@@ -122,7 +121,6 @@ func (r *Repository) GetByID(id int) (*domainTodo.Todolist, error) {
 	return todo.toDomainMapper(), nil
 }
 
-// GetOneByMap ... Fetch only one medicine by Map
 func (r *Repository) GetOneByMap(todoMap map[string]any) (*domainTodo.Todolist, error) {
 	var todo Todo
 
@@ -141,7 +139,6 @@ func (r *Repository) GetOneByMap(todoMap map[string]any) (*domainTodo.Todolist, 
 	return todo.toDomainMapper(), err
 }
 
-// Update ... Update medicine
 func (r *Repository) Update(id int, todoMap map[string]any) (*domainTodo.Todolist, error) {
 	var todo Todo
 
@@ -150,7 +147,6 @@ func (r *Repository) Update(id int, todoMap map[string]any) (*domainTodo.Todolis
 		Select("name", "description").
 		Updates(todoMap).Error
 
-	// err = config.DB.Save(medicine).Error
 	if err != nil {
 		byteErr, _ := json.Marshal(err)
 		var newError domainErrors.GormErr
